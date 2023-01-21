@@ -1,1 +1,1 @@
-export const t = 1;
+export * as EEContextNS from './EEContext';

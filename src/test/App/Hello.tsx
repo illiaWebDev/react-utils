@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-import-module-exports */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 
 

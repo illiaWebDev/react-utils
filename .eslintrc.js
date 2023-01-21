@@ -25,7 +25,9 @@ const config = {
     'import/prefer-default-export': 'off',
     'no-void': 'off',
     'react/prefer-stateless-function': 'off',
-    'jsx-quotes': ["error", "prefer-single"]
+    'jsx-quotes': ["error", "prefer-single"],
+    'no-underscore-dangle': 'off',
+    'arrow-parens': ['error', "as-needed"]
   }
 };
 
