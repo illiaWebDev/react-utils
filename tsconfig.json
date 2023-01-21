@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": ["ES2015", "DOM"],
+    "module": "commonjs",
+    "strict": true,
+    "declaration": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "jsx": "react",
+    "esModuleInterop": true
+  },
+  "files": [
+    "./src/index.tsx",
+    "./src/test/index.tsx"
+  ]
+}

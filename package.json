@@ -1,0 +1,62 @@
+{
+  "name": "react-utils",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "tsc --noEmit",
+    "transpileToDist": "rm -rf ./dist && tsc",
+    "ts": "tsc --noEmit --watch",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "lint:webpack-test-config": "eslint ./src/test/webpack.config.js --no-ignore",
+    "prepare": "husky install",
+    "publish-package:test:pack": "npm pack",
+    "publish-package:test:unpack-archive": "tar zxvf",
+    "publish-package:publish": "npm run transpileToDist && npm publish --access public",
+    "test-locally": "webpack serve --config ./src/test/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/illiaWebDev/react-utils.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/illiaWebDev/react-utils/issues"
+  },
+  "homepage": "https://github.com/illiaWebDev/react-utils#readme",
+  "peerDependencies": {
+    "react": "^17 || ^18",
+    "react-dom": "^17 || ^18"
+  },
+  "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-dev-server": "^4.7.2",
+    "@types/webpack-env": "^1.18.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "esbuild-loader": "^2.21.0",
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "fork-ts-checker-webpack-plugin": "^7.3.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-refresh": "^0.14.0",
+    "typescript": "^4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
