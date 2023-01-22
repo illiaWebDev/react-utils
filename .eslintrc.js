@@ -27,7 +27,10 @@ const config = {
     'react/prefer-stateless-function': 'off',
     'jsx-quotes': ["error", "prefer-single"],
     'no-underscore-dangle': 'off',
-    'arrow-parens': ['error', "as-needed"]
+    'arrow-parens': ['error', "as-needed"],
+    '@typescript-eslint/no-shadow': 'off',
+    'computed-property-spacing': ['error', 'always'],
+    'react/jsx-curly-spacing': ['error', 'always']
   }
 };
 

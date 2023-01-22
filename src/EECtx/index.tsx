@@ -7,7 +7,11 @@ export type Arg< T > = {
   /**
    * will be used in display name for WithCtx component to \
    * make locationg particular context easier (as there can\
-   * be several EEContexts)
+   * be several EECtx). NOTE that it will be appended\
+   * with common suffix
+   *
+   * @example
+   * 'my-project-eeCtx' => 'my-project-eeCtx/react-utils/EECtx/WithCtx'
    */
   displayNamePrefix?: string;
 };
@@ -35,11 +39,11 @@ export function init< T >( { rootReducer, displayNamePrefix = '' }: Arg< T > ): 
 
   // eslint-disable-next-line react/prop-types
   const WithCtx: Rtrn< T >[ 'WithCtx' ] = React.memo( ( { children } ) => (
-    <ctx.Provider value={store}>
+    <ctx.Provider value={ store }>
       { children }
     </ctx.Provider>
   ) );
-  WithCtx.displayName = `${displayNamePrefix}_react-utils/EEContext/WithCtx`;
+  WithCtx.displayName = `${displayNamePrefix}/react-utils/EECtx/WithCtx`;
 
   const useCtx: Rtrn< T >[ 'useCtx' ] = () => React.useContext( ctx );
 
@@ -57,11 +61,11 @@ export function init< T >( { rootReducer, displayNamePrefix = '' }: Arg< T > ): 
 
 
       const fRef = React.useRef< typeof f >( f );
-      fRef.current = f;
+      if ( fRef.current !== f ) fRef.current = f;
 
 
       const cmpRef = React.useRef< typeof cmp >( cmp );
-      cmpRef.current = cmp;
+      if ( cmpRef.current !== cmp ) cmpRef.current = cmp;
 
 
       const subscriber = React.useCallback< StoreNS.Subscriber< T > >(
@@ -75,7 +79,7 @@ export function init< T >( { rootReducer, displayNamePrefix = '' }: Arg< T > ): 
         [],
       );
       const subscriberRef = React.useRef< typeof subscriber >( subscriber );
-      subscriberRef.current = subscriber;
+      if ( subscriberRef.current !== subscriber ) subscriberRef.current = subscriber;
 
 
       React.useEffect( () => {

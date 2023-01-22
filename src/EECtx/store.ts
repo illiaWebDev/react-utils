@@ -1,12 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { ObjKeys } from '@illia-web-dev/types/dist/types/ObjKeys';
 import EventEmitter from 'eventemitter3';
 
 
 export type Subscriber< T > = ( nextState: T ) => unknown;
 
 export type Action = { type: string };
-export const HYDRATE_ACTION: Action = { type: '__EEContext/Store/hydrate__' };
+export const HYDRATE_ACTION: Action = { type: '__EECtx/Store/hydrate__' };
 export type Reducer< T, A extends Action = Action > = ( arg: { s?: T; action: A } ) => T;
+
+
+// ===================================================================================
 
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -42,4 +46,36 @@ export class Store< T > {
   };
 
   getState = (): T => this.__state;
+}
+
+
+// ===================================================================================
+
+
+export function combineReducers< S extends Record< string, unknown > >(
+  reducerMap: { [ K in keyof S ]: Reducer< S[ K ], any > },
+): Reducer< S > {
+  return ( { action, s } ) => {
+    const reducerKeys = ObjKeys( reducerMap );
+
+    const { changeDetected, nextS } = reducerKeys.reduce< { nextS: S, changeDetected: boolean } >(
+      ( a, key ) => {
+        const nextV = reducerMap[ key ]( { s: s && s[ key ], action } );
+
+        const { nextS } = a;
+        const prevV = nextS[ key ];
+        nextS[ key ] = nextV;
+
+        // eslint-disable-next-line no-param-reassign
+        a.nextS = nextS;
+        // eslint-disable-next-line no-param-reassign
+        a.changeDetected = a.changeDetected || nextV !== prevV;
+
+        return a;
+      },
+      { nextS: {} as S, changeDetected: false },
+    );
+
+    return changeDetected || s === undefined ? nextS : s;
+  };
 }

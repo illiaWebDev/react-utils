@@ -1,46 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-import-module-exports */
 import React from 'react';
-import { Counter } from './Counter';
-import { HelloComp } from './Hello';
-import {
-  WithCtx, useSelector, useDispatch, aCreators,
-} from './eeContext';
-
-
-const CompA = React.memo( () => {
-  const a = useSelector( s => s.a );
-  const dispatch = useDispatch();
-  const inc = React.useCallback( () => {
-    dispatch( aCreators.incrementA() );
-  }, [dispatch] );
-
-  return (
-    <div>
-      <span>{a}</span>
-      <br />
-      <button onClick={inc} type='button'>inc A</button>
-    </div>
-  );
-} );
-CompA.displayName = 'CompA';
-
-
-const CompB = React.memo( () => {
-  const b = useSelector( s => s.b );
-  const dispatch = useDispatch();
-  const inc = React.useCallback( () => {
-    dispatch( aCreators.incrementB() );
-  }, [dispatch] );
-
-  return (
-    <div>
-      <span>{b}</span>
-      <br />
-      <button onClick={inc} type='button'>inc B</button>
-    </div>
-  );
-} );
-CompB.displayName = 'CompB';
+import { WithCtx, useSelector } from './EECtxSetup';
+import { CompA } from './a/Comp';
+import { CompB } from './b/Comp';
 
 
 const CompC = React.memo( () => {
@@ -56,13 +18,21 @@ CompC.displayName = 'CompC';
 
 
 export function App() {
+  const [hidden, setHidden] = React.useState( false );
+  const toggleHide = React.useCallback( () => setHidden( s => !s ), [] );
+
   return (
     <WithCtx>
-      <div>
-        <CompA />
-        <CompB />
-        <CompC />
-      </div>
+      <button type='button' onClick={ toggleHide }>toggle hide</button>
+      <br />
+      <br />
+      { hidden ? null : (
+        <div>
+          <CompA />
+          <CompB />
+          <CompC />
+        </div>
+      )}
     </WithCtx>
   );
 }
