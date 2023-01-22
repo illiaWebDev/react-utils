@@ -58,12 +58,12 @@ export function combineReducers< S extends Record< string, unknown > >(
   return ( { action, s } ) => {
     const reducerKeys = ObjKeys( reducerMap );
 
-    const { changeDetected, nextS } = reducerKeys.reduce< { nextS: S, changeDetected: boolean } >(
+    const { changeDetected, nextS } = reducerKeys.reduce< { nextS: S; changeDetected: boolean } >(
       ( a, key ) => {
-        const nextV = reducerMap[ key ]( { s: s && s[ key ], action } );
-
         const { nextS } = a;
         const prevV = nextS[ key ];
+        const nextV = reducerMap[ key ]( { s: prevV, action } );
+
         nextS[ key ] = nextV;
 
         // eslint-disable-next-line no-param-reassign
@@ -73,7 +73,7 @@ export function combineReducers< S extends Record< string, unknown > >(
 
         return a;
       },
-      { nextS: {} as S, changeDetected: false },
+      { nextS: s || {} as S, changeDetected: false },
     );
 
     return changeDetected || s === undefined ? nextS : s;

@@ -23,6 +23,7 @@ export const defaultCompare: Compare< unknown > = ( a, b ) => a === b;
 
 export type Rtrn< T > = {
   ctx: React.Context< StoreNS.Store< T > >;
+  store: StoreNS.Store< T >;
   WithCtx: React.ComponentType< React.PropsWithChildren< Record< string, unknown > > >;
   useCtx: () => StoreNS.Store< T >;
   useDispatch: () => StoreNS.Store< T >[ 'dispatch' ];
@@ -50,6 +51,7 @@ export function init< T >( { rootReducer, displayNamePrefix = '' }: Arg< T > ): 
 
   return {
     ctx,
+    store,
     WithCtx,
     useCtx,
     useDispatch: () => useCtx().dispatch,

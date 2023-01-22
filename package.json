@@ -62,6 +62,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "@illia-web-dev/types": "^0.0.3"
+    "@illia-web-dev/types": "^0.0.4"
   }
 }

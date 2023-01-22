@@ -30,7 +30,9 @@ const config = {
     'arrow-parens': ['error', "as-needed"],
     '@typescript-eslint/no-shadow': 'off',
     'computed-property-spacing': ['error', 'always'],
-    'react/jsx-curly-spacing': ['error', 'always']
+    'react/jsx-curly-spacing': ['error', 'always'],
+    'react/prop-types': 'off',
+    "@typescript-eslint/member-delimiter-style": "error"
   }
 };
 

@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import type { ACreators } from '@illia-web-dev/types/dist/types/ACreators';
 import type { RecordValues } from '@illia-web-dev/types/dist/types/RecordValues';
 import { EECtxNS } from '../../..';
 
@@ -11,7 +12,7 @@ export const defaultState: State = { value: 0 };
 export type Actions = {
   incrementB: { type: 'incrementB' };
 };
-export const aCreators: { [ K in keyof Actions ]: () => Actions[ K ] } = {
+export const aCreators: ACreators< Actions > = {
   incrementB: () => ( { type: 'incrementB' } ),
 };
 export type AllActions = RecordValues< Actions >;
