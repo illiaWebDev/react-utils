@@ -4,6 +4,7 @@ import React from 'react';
 export type Props = {
   onOverlayClick?: React.MouseEventHandler< HTMLDivElement >;
   noInlineStyles?: true;
+  className?: string;
 };
 
 export const clss = {
@@ -30,16 +31,28 @@ const contentInlineStyle: React.CSSProperties = {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const _: React.FC< React.PropsWithChildren< Props > > = React.memo( p => {
-  const { children, onOverlayClick } = p;
+  const {
+    children,
+    onOverlayClick,
+    noInlineStyles,
+    className,
+  } = p;
+  const wrapClsnm = React.useMemo(
+    () => [clss.wrap, className].filter( Boolean ).join( ' ' ),
+    [className],
+  );
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      style={ wrapInlineStyle }
+      style={ noInlineStyles ? undefined : wrapInlineStyle }
       onClick={ onOverlayClick }
-      className={ clss.wrap }
+      className={ wrapClsnm }
     >
-      <div style={ contentInlineStyle } className={ clss.wrap }>
+      <div
+        style={ noInlineStyles ? undefined : contentInlineStyle }
+        className={ clss.content }
+      >
         { children }
       </div>
     </div>

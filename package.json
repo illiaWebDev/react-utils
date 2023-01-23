@@ -28,12 +28,14 @@
   },
   "homepage": "https://github.com/illiaWebDev/react-utils#readme",
   "peerDependencies": {
+    "@popperjs/core": ">=2.4.0",
     "eventemitter3": "^4 || ^5",
     "react": "^17 || ^18",
     "react-dom": "^17 || ^18"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@popperjs/core": "^2.11.6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/webpack": "^5.28.0",

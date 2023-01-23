@@ -1,10 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-import-module-exports */
 import React from 'react';
-import { WithCtx, useSelector } from './EECtxSetup';
+import { WithCtx, useSelector, useDispatch } from './EECtxSetup';
 import { CompA } from './a/Comp';
 import { CompB } from './b/Comp';
 import * as ModalNS from '../../modal';
 import { ShowModalBtn } from './modal';
+import * as PopperNS from '../../popper';
+import { ShowPopperBtn } from './Popper';
 
 
 const CompC = React.memo( () => {
@@ -20,10 +22,16 @@ CompC.displayName = 'CompC';
 
 
 const useModals: ModalNS.CompNS.RootNS.Props[ 'useModals' ] = () => useSelector( s => s.modal.modals );
+const usePopperState: PopperNS.CompNS.RootNS.Props[ 'usePopperState' ] = () => useSelector( s => s.popper );
 
 export function App() {
   const [hidden, setHidden] = React.useState( false );
   const toggleHide = React.useCallback( () => setHidden( s => !s ), [] );
+  const dispatch = useDispatch();
+  const closePopper = React.useCallback( () => (
+    dispatch( PopperNS.aCreators.hide() )
+  ), [dispatch] );
+
 
   return (
     <WithCtx>
@@ -38,8 +46,23 @@ export function App() {
           } }
           >
             Sidebar
+
+            <br />
+            <br />
+
+            <ShowPopperBtn />
+
+
             {/* eslint-disable-next-line react/no-array-index-key */}
             {Array( 100 ).fill( 0 ).map( ( _, i ) => <br key={ i } /> )}
+
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+
             Sidebar end
           </div>
           <div style={ { padding: 16 } }>
@@ -62,6 +85,7 @@ export function App() {
       </div>
 
       <ModalNS.CompNS.RootNS._ useModals={ useModals } />
+      <PopperNS.CompNS.RootNS._ usePopperState={ usePopperState } close={ closePopper } />
     </WithCtx>
   );
 }
