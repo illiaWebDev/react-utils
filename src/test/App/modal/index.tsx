@@ -1,46 +1,30 @@
 import React from 'react';
 import { useDispatch } from '../EECtxSetup';
 import * as modalEECtx from '../../../modal/EECtx';
+import * as ModalCompNS from '../../../modal/Comp';
 
 
-const ModalRaw: React.FC< React.PropsWithChildren< Record< string, unknown > > > = React.memo( ( { children } ) => {
+type OnOverlayClick = NonNullable< ModalCompNS.ModalNS.Props[ 'onOverlayClick' ] >;
+const useCloseModal = () => {
   const dispatch = useDispatch();
-  const close = React.useCallback< React.MouseEventHandler< HTMLDivElement > >( e => {
+
+  return React.useCallback< OnOverlayClick >( e => {
     if ( e.target !== e.currentTarget ) return;
 
     dispatch( modalEECtx.aCreators.popModal() );
   }, [dispatch] );
+};
+
+
+const Modal2: modalEECtx.ModalComp = React.memo( p => {
+  const closeModal = useCloseModal();
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <div
-      style={ {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-      } }
-      onClick={ close }
-    >
-      <div style={ { padding: 16, backgroundColor: '#fff' } }>
-        { children }
-      </div>
-    </div>
+    <ModalCompNS.ModalNS._ onOverlayClick={ closeModal }>
+      { ( p.children || null ) as React.ReactNode }
+    </ModalCompNS.ModalNS._>
   );
 } );
-ModalRaw.displayName = 'test/App/modal/ModalRaw';
-
-
-const Modal2: modalEECtx.ModalComp = React.memo( p => (
-  <ModalRaw>
-    { p.children as React.ReactNode }
-  </ModalRaw>
-) );
 Modal2.displayName = 'test/App/modal/Modal2';
 
 
@@ -53,10 +37,11 @@ const Modal: modalEECtx.ModalComp = React.memo( p => {
       props: [{ children: 'Modal 2' }],
     } ) )
   ), [dispatch] );
+  const closeModal = useCloseModal();
 
 
   return (
-    <ModalRaw>
+    <ModalCompNS.ModalNS._ onOverlayClick={ closeModal }>
       <>
         { children }
 
@@ -66,7 +51,7 @@ const Modal: modalEECtx.ModalComp = React.memo( p => {
           Show modal
         </button>
       </>
-    </ModalRaw>
+    </ModalCompNS.ModalNS._>
   );
 } );
 Modal.displayName = 'test/App/modal/Modal';

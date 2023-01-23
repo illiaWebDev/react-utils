@@ -6,6 +6,7 @@ import { CompB } from './b/Comp';
 import * as ModalNS from '../../modal';
 import { ShowModalBtn } from './modal';
 
+
 const CompC = React.memo( () => {
   const s = useSelector( v => ( { a: v.a, b: v.b } ) );
 
@@ -18,7 +19,7 @@ const CompC = React.memo( () => {
 CompC.displayName = 'CompC';
 
 
-const useModals: ModalNS.CompNS.Props[ 'useModals' ] = () => useSelector( s => s.modal.modals );
+const useModals: ModalNS.CompNS.RootNS.Props[ 'useModals' ] = () => useSelector( s => s.modal.modals );
 
 export function App() {
   const [hidden, setHidden] = React.useState( false );
@@ -60,7 +61,7 @@ export function App() {
         </div>
       </div>
 
-      <ModalNS.CompNS._ useModals={ useModals } />
+      <ModalNS.CompNS.RootNS._ useModals={ useModals } />
     </WithCtx>
   );
 }

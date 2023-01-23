@@ -1,5 +1,5 @@
 import React from 'react';
-import { State } from './EECtx';
+import type { State } from '../EECtx';
 
 
 export type Props = {
@@ -19,4 +19,4 @@ export const _: React.FC< Props > = React.memo( ( { useModals } ) => {
     </>
   );
 } );
-_.displayName = '__illia-web-dev__/react-utils/modal/Comp';
+_.displayName = '__illia-web-dev__/react-utils/modal/Comp/Root';
