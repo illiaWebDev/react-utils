@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-import-module-exports */
 import React from 'react';
-import { WithCtx, useSelector, useDispatch } from './EECtxSetup';
+import { WithCtx, useSelector } from './EECtxSetup';
 import { CompA } from './a/Comp';
 import { CompB } from './b/Comp';
-import * as ModalNS from '../../modal';
+import * as PortalNS from '../../portal';
 import { ShowModalBtn } from './modal';
-import * as PopperNS from '../../popper';
-import { ShowPopperBtn } from './Popper';
+// import * as PopperNS from '../../popper';
+// import { ShowPopperBtn } from './Popper';
 
 
 const CompC = React.memo( () => {
@@ -21,16 +21,16 @@ const CompC = React.memo( () => {
 CompC.displayName = 'CompC';
 
 
-const useModals: ModalNS.CompNS.RootNS.Props[ 'useModals' ] = () => useSelector( s => s.modal.modals );
-const usePopperState: PopperNS.CompNS.RootNS.Props[ 'usePopperState' ] = () => useSelector( s => s.popper );
+const usePortals: PortalNS.CompNS.RootNS.Props[ 'usePortals' ] = () => useSelector( s => s.portal.portals );
+// const usePopperState: PopperNS.CompNS.RootNS.Props[ 'usePopperState' ] = () => useSelector( s => s.popper );
 
 export function App() {
   const [hidden, setHidden] = React.useState( false );
   const toggleHide = React.useCallback( () => setHidden( s => !s ), [] );
-  const dispatch = useDispatch();
-  const closePopper = React.useCallback( () => (
-    dispatch( PopperNS.aCreators.hide() )
-  ), [dispatch] );
+  // const dispatch = useDispatch();
+  // const closePopper = React.useCallback( () => (
+  //   dispatch( PopperNS.aCreators.hide() )
+  // ), [dispatch] );
 
 
   return (
@@ -50,7 +50,7 @@ export function App() {
             <br />
             <br />
 
-            <ShowPopperBtn />
+            {/* <ShowPopperBtn /> */}
 
 
             {/* eslint-disable-next-line react/no-array-index-key */}
@@ -84,8 +84,8 @@ export function App() {
         </div>
       </div>
 
-      <ModalNS.CompNS.RootNS._ useModals={ useModals } />
-      <PopperNS.CompNS.RootNS._ usePopperState={ usePopperState } close={ closePopper } />
+      <PortalNS.CompNS.RootNS._ usePortals={ usePortals } />
+      {/* <PopperNS.CompNS.RootNS._ usePopperState={ usePopperState } close={ closePopper } /> */}
     </WithCtx>
   );
 }

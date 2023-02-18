@@ -5,7 +5,7 @@ import EventEmitter from 'eventemitter3';
 
 export type Subscriber< T > = ( nextState: T ) => unknown;
 
-export type Action = { type: string };
+export type Action< T = string > = { type: T };
 export const HYDRATE_ACTION: Action = { type: '__EECtx/Store/hydrate__' };
 export type Reducer< T, A extends Action = Action > = ( arg: { s?: T; action: A } ) => T;
 
@@ -22,12 +22,12 @@ export class Store< T > {
   __emitter = new EventEmitter< { update: Subscriber< T > } >();
 
   /**
-   * we need to use any here because for some reason when\
+   * cannot use correct typing for some reason, cause when\
    * used with properly typed Reducer, that specifies all\
    * possible Actions - it errors. But here our contract is\
    * basically "any valid Action type", so this should suffice
    */
-  constructor( rootReducer: Reducer< T, any > ) {
+  constructor( rootReducer: Reducer< T, Action > ) {
     this.__rootReducer = rootReducer;
     this.__state = this.__rootReducer( { action: HYDRATE_ACTION } );
   }
@@ -53,7 +53,7 @@ export class Store< T > {
 
 
 export function combineReducers< S extends Record< string, unknown > >(
-  reducerMap: { [ K in keyof S ]: Reducer< S[ K ], any > },
+  reducerMap: { [ K in keyof S ]: Reducer< S[ K ], Action< any > > },
 ): Reducer< S > {
   return ( { action, s } ) => {
     const reducerKeys = ObjKeys( reducerMap );

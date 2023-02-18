@@ -3,7 +3,7 @@ import * as StoreNS from './store';
 
 
 export type Arg< T > = {
-  rootReducer: StoreNS.Reducer< T, any >;
+  rootReducer: StoreNS.Reducer< T, StoreNS.Action >;
   /**
    * will be used in display name for WithCtx component to \
    * make locationg particular context easier (as there can\

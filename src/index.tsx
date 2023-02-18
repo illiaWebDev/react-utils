@@ -1,3 +1,3 @@
 export * as EECtxNS from './EECtx';
-export * as ModalNS from './modal';
-export * as PopperNS from './popper';
+export * as PortalNS from './portal';
+// export * as PopperNS from './popper';

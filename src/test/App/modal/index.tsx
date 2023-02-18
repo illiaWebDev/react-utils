@@ -1,38 +1,37 @@
 import React from 'react';
 import { useDispatch } from '../EECtxSetup';
-import * as modalEECtx from '../../../modal/EECtx';
-import * as ModalCompNS from '../../../modal/Comp';
+import * as portalNS from '../../../portal';
 
 
-type OnOverlayClick = NonNullable< ModalCompNS.ModalNS.Props[ 'onOverlayClick' ] >;
+type OnOverlayClick = NonNullable< portalNS.CompNS.ModalNS.Props[ 'onOverlayClick' ] >;
 const useCloseModal = () => {
   const dispatch = useDispatch();
 
   return React.useCallback< OnOverlayClick >( e => {
     if ( e.target !== e.currentTarget ) return;
 
-    dispatch( modalEECtx.aCreators.popModal() );
+    dispatch( portalNS.aCreators.popPortal() );
   }, [dispatch] );
 };
 
 
-const Modal2: modalEECtx.ModalComp = React.memo( p => {
+const Modal2: portalNS.PortalComp = React.memo( p => {
   const closeModal = useCloseModal();
 
   return (
-    <ModalCompNS.ModalNS._ onOverlayClick={ closeModal }>
+    <portalNS.CompNS.ModalNS._ onOverlayClick={ closeModal }>
       { ( p.children || null ) as React.ReactNode }
-    </ModalCompNS.ModalNS._>
+    </portalNS.CompNS.ModalNS._>
   );
 } );
 Modal2.displayName = 'test/App/modal/Modal2';
 
 
-const Modal: modalEECtx.ModalComp = React.memo( p => {
+const Modal: portalNS.PortalComp = React.memo( p => {
   const { children } = p;
   const dispatch = useDispatch();
   const pushModal = React.useCallback( () => (
-    dispatch( modalEECtx.aCreators.pushModal( {
+    dispatch( portalNS.aCreators.pushPortal( {
       Comp: Modal2,
       props: [{ children: 'Modal 2' }],
     } ) )
@@ -41,7 +40,7 @@ const Modal: modalEECtx.ModalComp = React.memo( p => {
 
 
   return (
-    <ModalCompNS.ModalNS._ onOverlayClick={ closeModal }>
+    <portalNS.CompNS.ModalNS._ onOverlayClick={ closeModal }>
       <>
         { children }
 
@@ -51,7 +50,7 @@ const Modal: modalEECtx.ModalComp = React.memo( p => {
           Show modal
         </button>
       </>
-    </ModalCompNS.ModalNS._>
+    </portalNS.CompNS.ModalNS._>
   );
 } );
 Modal.displayName = 'test/App/modal/Modal';
@@ -61,11 +60,11 @@ export const ShowModalBtn = React.memo( () => {
   const dispatch = useDispatch();
 
   const popProps = React.useCallback( () => (
-    dispatch( modalEECtx.aCreators.popProps( ) )
+    dispatch( portalNS.aCreators.popProps( ) )
   ), [dispatch] );
 
   const pushProps = React.useCallback( () => (
-    dispatch( modalEECtx.aCreators.pushProps( {
+    dispatch( portalNS.aCreators.pushProps( {
       children: (
         <div>
           <span>Modal 1; Props 2;</span>
@@ -77,7 +76,7 @@ export const ShowModalBtn = React.memo( () => {
   ), [dispatch, popProps] );
 
   const pushModal = React.useCallback( () => (
-    dispatch( modalEECtx.aCreators.pushModal( {
+    dispatch( portalNS.aCreators.pushPortal( {
       Comp: Modal,
       props: [{
         children: (
