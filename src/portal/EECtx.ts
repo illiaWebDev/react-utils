@@ -4,6 +4,38 @@ import type React from 'react';
 import type { SafeOmit } from '@illia-web-dev/types/dist/types/Omit';
 import type { Reducer } from '../EECtx/store';
 
+/**
+ * couple of design decisions here
+ * - mainly, we operate with Component and arrays of its props \
+ *   because we want full control over the portal-based structures\
+ *   each and every time we push to those
+ * - array of props serves to allow for horizontal scaling, e.g.\
+ *   with modals we sometimes want to change content of already\
+ *   opened modal instead of creating another one or replacing\
+ *   current entirely
+ * - types are pretty general because it's pretty complex to type\
+ *   it correctly while staying generic. From the standpoint of \
+ *   this code we are not really interesed in particular shape of\
+ *   props, because we just pass them down to Component, however\
+ *   when we call the pushPortal method we want to ensure that what\
+ *   we do is correct and intended way to do that is to define props\
+ *   in place typig it with exact Prps type that component would \
+ *   expect
+ * - for modals, sometimes we want deeper control over "close"\
+ *   functionality (it's fairly often that we want to have some \
+ *   transitions like fade-in/out or slide-in/out or whatnot).\
+ *   But also oftentimes close will be specific to our Component \
+ *   (resides in its local state) and no obvious way to pass the \
+ *   "close" function to modal contents. This can be solved for \
+ *   example with
+ *   - contexts: we define close context together with Component
+ *     and then any content components can bind to that
+ *   - we override "close" function using props because those are \
+ *     intended to be fed to Component by "Root portal component" (see\
+ *     Root file nearby in ./Comp). This is exactly the strategy\
+ *     to take if we want to prevent closing modals when there are \
+ *     changes that might be lost
+ */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Props = Record< string, any >;
