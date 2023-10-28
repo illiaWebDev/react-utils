@@ -1,8 +1,7 @@
 {
   "name": "@illia-web-dev/react-utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
-  "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "scripts": {
     "ts": "tsc --noEmit --watch",
@@ -15,10 +14,10 @@
     "husky:prepush:combine": "npm run husky:prepush:lint && npm run husky:prepush:ts",
     "husky:prepush": "npm run husky:prepush:combine; PREPUSH_RESULT=$?; (if [ $PREPUSH_RESULT -eq 1 ]; then echo '\n\n\nPREPUSH CHECK FAILED\n\n\n'; fi;); return $PREPUSH_RESULT",
     "=====================================================================2": "",
-    "publish-package:test:pack": "npm run transpileToDist && npm pack",
+    "publish-package:test:pack": "npm run ts:build && npm pack",
     "publish-package:test:unpack-archive": "tar zxvf illia-web-dev-react-utils*",
     "publish-package:test:clean": "rm -rf ./package && rm -rf illia-web-dev-react-utils*",
-    "publish-package:publish": "npm run transpileToDist && npm publish --access public",
+    "publish-package:publish": "npm run husky:prepush && npm publish --access public",
     "=====================================================================3": "",
     "test-locally": "webpack serve --config ./src/test/webpack.config.js"
   },

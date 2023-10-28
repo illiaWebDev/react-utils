@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import type { ACreators } from '@illia-web-dev/types/dist/types/ACreators';
 import type { RecordValues } from '@illia-web-dev/types/dist/types/RecordValues';
-import { EECtxNS } from '../../..';
+import type * as EECtxNS from '../../../EECtx';
 
 
 export type State = {

@@ -1,9 +1,11 @@
 .husky
 node_modules
 src
+.eslintcache
 .eslintignore
 .eslintrc.js
 .gitignore
 .npmignore
 package-lock.json
+tsconfig.eslint.json
 tsconfig.json

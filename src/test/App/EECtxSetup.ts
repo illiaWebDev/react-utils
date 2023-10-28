@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { EECtxNS } from '../..';
+import * as EECtxNS from '../../EECtx';
 import * as aEECtxNS from './a/EECtx';
 import * as bEECtxNS from './b/EECtx';
 
