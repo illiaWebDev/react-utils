@@ -8,7 +8,7 @@ export const CompA = React.memo( () => {
   const dispatch = useDispatch();
   const inc = React.useCallback( () => {
     dispatch( aCreators.incrementA() );
-  }, [dispatch] );
+  }, [ dispatch ] );
 
   return (
     <div>

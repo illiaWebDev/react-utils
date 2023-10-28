@@ -3,10 +3,6 @@ import React from 'react';
 import { WithCtx, useSelector } from './EECtxSetup';
 import { CompA } from './a/Comp';
 import { CompB } from './b/Comp';
-import * as PortalNS from '../../portal';
-import { ShowModalBtn } from './modal';
-// import * as PopperNS from '../../popper';
-// import { ShowPopperBtn } from './Popper';
 
 
 const CompC = React.memo( () => {
@@ -14,23 +10,16 @@ const CompC = React.memo( () => {
 
   return (
     <div>
-      <pre>{JSON.stringify( s, null, 2 )}</pre>
+      <pre>{ JSON.stringify( s, null, 2 ) }</pre>
     </div>
   );
 } );
 CompC.displayName = 'CompC';
 
 
-const usePortals: PortalNS.CompNS.RootNS.Props[ 'usePortals' ] = () => useSelector( s => s.portal.portals );
-// const usePopperState: PopperNS.CompNS.RootNS.Props[ 'usePopperState' ] = () => useSelector( s => s.popper );
-
 export function App() {
-  const [hidden, setHidden] = React.useState( false );
+  const [ hidden, setHidden ] = React.useState( false );
   const toggleHide = React.useCallback( () => setHidden( s => !s ), [] );
-  // const dispatch = useDispatch();
-  // const closePopper = React.useCallback( () => (
-  //   dispatch( PopperNS.aCreators.hide() )
-  // ), [dispatch] );
 
 
   return (
@@ -74,18 +63,11 @@ export function App() {
                 <CompA />
                 <CompB />
                 <CompC />
-
-                <br />
-
-                <ShowModalBtn />
               </div>
             )}
           </div>
         </div>
       </div>
-
-      <PortalNS.CompNS.RootNS._ usePortals={ usePortals } />
-      {/* <PopperNS.CompNS.RootNS._ usePopperState={ usePopperState } close={ closePopper } /> */}
     </WithCtx>
   );
 }

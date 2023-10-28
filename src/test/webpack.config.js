@@ -18,7 +18,7 @@ const config = {
     filename: 'main.js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: [ '.ts', '.tsx', '.js' ],
   },
   module: {
     rules: [

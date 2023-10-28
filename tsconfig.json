@@ -9,10 +9,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "files": [
     "./src/index.tsx",
     "./src/test/index.tsx"
-  ]
+  ],
+  "exclude": [ "node_modules" ]
 }

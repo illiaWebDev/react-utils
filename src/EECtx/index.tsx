@@ -6,7 +6,7 @@ export type Arg< T > = {
   rootReducer: StoreNS.Reducer< T, StoreNS.Action >;
   /**
    * will be used in display name for WithCtx component to \
-   * make locationg particular context easier (as there can\
+   * make locating particular context easier (as there can\
    * be several EECtx). NOTE that it will be appended\
    * with common suffix
    *
@@ -59,7 +59,7 @@ export function init< T >( { rootReducer, displayNamePrefix = '' }: Arg< T > ): 
     useSubscribe: () => useCtx().subscribe,
     useSelector: ( f, cmp = defaultCompare ) => {
       const storeInner = useCtx();
-      const [value, setValue] = React.useState( f( storeInner.getState() ) );
+      const [ value, setValue ] = React.useState( f( storeInner.getState() ) );
 
 
       const fRef = React.useRef< typeof f >( f );
@@ -88,7 +88,7 @@ export function init< T >( { rootReducer, displayNamePrefix = '' }: Arg< T > ): 
         storeInner.subscribe( subscriberRef.current );
 
         return () => storeInner.unsubscribe( subscriberRef.current );
-      }, [storeInner] );
+      }, [ storeInner ] );
 
 
       return value;
